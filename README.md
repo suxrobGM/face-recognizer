@@ -1,0 +1,2 @@
+# FaceRecognizer
+Face recognition app
