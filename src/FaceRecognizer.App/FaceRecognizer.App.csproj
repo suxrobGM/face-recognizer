@@ -1,0 +1,24 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net5.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <Platforms>AnyCPU;x64</Platforms>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ApplicationDefinition Include="AppBase.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="DlibDotNet" Version="19.21.0.20210302" />
+    <PackageReference Include="DryIoc.dll" Version="4.7.8" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Core\Helpers\" />
+    <Folder Include="ViewModels\" />
+  </ItemGroup>
+
+</Project>
