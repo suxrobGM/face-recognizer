@@ -26,9 +26,11 @@ namespace FaceRecognizer.App
         {
             Container.Register<MainWindow>(Reuse.Singleton);
             Container.Register<ImageRecognitionPage>(Reuse.Singleton);
+            Container.Register<RealTimeRecognitionPage>(Reuse.Singleton);
 
             Container.Register<MainWindowViewModel>(Reuse.Singleton);
             Container.Register<ImageRecognitionPageViewModel>(Reuse.Singleton);
+            Container.Register<RealTimeRecognitionPageViewModel>(Reuse.Singleton);
         }
     }
 }
