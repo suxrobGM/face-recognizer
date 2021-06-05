@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "FaceRecognizer.App": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "ENVIRONMENT": "Development"
+      }
+    }
+  }
+}

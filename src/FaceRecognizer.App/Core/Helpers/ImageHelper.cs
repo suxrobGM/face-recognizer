@@ -65,8 +65,6 @@ namespace FaceRecognizer.App.Core.Helpers
 
             return bitSrc;
         }
-
-        
     }
 
     internal static class NativeMethods

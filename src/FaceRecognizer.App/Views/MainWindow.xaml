@@ -6,8 +6,10 @@
         xmlns:pages="clr-namespace:FaceRecognizer.App.Views.Pages"
         mc:Ignorable="d"
         Title="Face Recognizer" 
-        Height="450" 
-        Width="800"
+        Height="600" 
+        Width="850"
+        MinHeight="600"
+        MinWidth="850"
         WindowStartupLocation="CenterScreen">
 
     <Grid>

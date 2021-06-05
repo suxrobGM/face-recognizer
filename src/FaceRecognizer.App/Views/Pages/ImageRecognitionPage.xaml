@@ -4,8 +4,8 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       mc:Ignorable="d" 
-      d:DesignHeight="450" 
-      d:DesignWidth="800"
+      d:DesignHeight="600" 
+      d:DesignWidth="850"
       Title="ImageRecognition">
 
     <Grid Background="White">
@@ -25,29 +25,32 @@
                     Margin="0,25,0,0">
             <WrapPanel VerticalAlignment="Top">
                 <Button Content="Image" 
-                        Height="25"
-                        Width="72"
+                        Height="35"
+                        Width="90"
                         Command="{Binding SelectImageCommand}">
                 </Button>
                 <TextBox Text="{Binding ImagePath}"
-                         Height="25"
-                         Width="650"
-                         Margin="2,0,0,0"
+                         Height="35"
+                         Margin="5,0,0,0"
                          IsReadOnly="True"
+                         Width="650"
                          VerticalAlignment="Center">
                 </TextBox>
             </WrapPanel>
             <Button Content="Recognize" 
                     HorizontalAlignment="Left" 
                     Margin="0,10,0,0" 
-                    Height="25" 
-                    Width="72"
+                    Height="35" 
+                    Width="90"
                     Command="{Binding RecognizeCommand}">
             </Button>
         </StackPanel>
-        <Image Grid.Row="1" 
-               Grid.Column="1"
-               Source="{Binding RecognizedImageSource}">
-        </Image>
+        <Border Grid.Row="1"
+                Grid.Column="1" 
+                BorderBrush="Black" 
+                BorderThickness="1">
+            <Image Source="{Binding RecognizedImageSource}">
+            </Image>
+        </Border>
     </Grid>
 </Page>

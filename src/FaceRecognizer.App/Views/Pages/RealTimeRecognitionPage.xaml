@@ -3,13 +3,56 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:FaceRecognizer.App.Views.Pages"
       mc:Ignorable="d" 
-      d:DesignHeight="450" 
-      d:DesignWidth="800"
+      d:DesignHeight="600" 
+      d:DesignWidth="850"
       Title="RealTimeRecognition">
 
     <Grid Background="White">
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="9*"/>
+            <ColumnDefinition Width="380*"/>
+            <ColumnDefinition Width="11*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="49*"/>
+            <RowDefinition Height="145*"/>
+            <RowDefinition Height="23*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0"
+              Grid.Column="1"
+              Margin="0,30,0,0">
+            <ComboBox Width="185"
+                      Height="25"
+                      HorizontalAlignment="Left"
+                      ItemsSource="{Binding AvailableCameras}"
+                      SelectedItem="{Binding SelectedCamera}"
+                      IsEnabled="{Binding CanChangeCamera}">
+            </ComboBox>
+            <StackPanel Orientation="Horizontal"
+                        HorizontalAlignment="Left"
+                        Margin="0,5,0,0">
+                <Button Content="Start Camera" 
+                        Height="35"
+                        Width="90"
+                        Command="{Binding StartCameraCommand}">
+                </Button>
+                <Button Content="Stop Camera" 
+                        Height="35"
+                        Width="90"
+                        Margin="5,0,0,0"
+                        Command="{Binding StopCameraCommand}" >
+                </Button>
+            </StackPanel>
+        </StackPanel>
+        <Border Grid.Row="1"
+                Grid.Column="1" 
+                BorderBrush="Black" 
+                BorderThickness="1">
+            <Image 
+                Source="{Binding CurrentFrame}">
+            </Image>
+        </Border>
     </Grid>
 </Page>

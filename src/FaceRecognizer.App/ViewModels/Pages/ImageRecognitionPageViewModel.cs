@@ -11,12 +11,17 @@ namespace FaceRecognizer.App.ViewModels.Pages
 {
     public class ImageRecognitionPageViewModel : ViewModelBase
     {
+        #region Ctor
+
         public ImageRecognitionPageViewModel()
         {
             SelectImageCommand = new RelayCommand(_ => OpenFileDialog());
             RecognizeCommand = new RelayCommand(_ => Recognize(),
                 _ => CanExecuteRecognizeCommand());
         }
+
+        #endregion
+        
 
         #region Commands
 
