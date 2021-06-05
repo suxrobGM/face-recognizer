@@ -21,6 +21,9 @@
             </TabItem>
             <TabItem Header="Real-Time Recognition">
                 <Frame NavigationUIVisibility="Hidden">
+                    <Frame.Content>
+                        <pages:RealTimeRecognitionPage />
+                    </Frame.Content>
                 </Frame>
             </TabItem>
         </TabControl>
