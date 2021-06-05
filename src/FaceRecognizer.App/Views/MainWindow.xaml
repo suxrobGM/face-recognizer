@@ -3,53 +3,26 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:pages="clr-namespace:FaceRecognizer.App.Views.Pages"
         mc:Ignorable="d"
         Title="Face Recognizer" 
         Height="450" 
         Width="800"
-        ResizeMode="CanMinimize"
         WindowStartupLocation="CenterScreen">
 
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="9*"/>
-            <ColumnDefinition Width="380*"/>
-            <ColumnDefinition Width="11*"/>
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="49*"/>
-            <RowDefinition Height="145*"/>
-            <RowDefinition Height="23*"/>
-        </Grid.RowDefinitions>
-
-        <StackPanel Grid.Row="0"
-                    Grid.Column="1" 
-                    Margin="0,25,0,0">
-            <WrapPanel VerticalAlignment="Top">
-                <Button Content="Image" 
-                        Height="25"
-                        Width="72"
-                        Command="{Binding SelectImageCommand}">
-                </Button>
-                <TextBox Text="{Binding ImagePath}"
-                         Height="25"
-                         Width="650"
-                         Margin="2,0,0,0"
-                         IsReadOnly="True"
-                         VerticalAlignment="Center">
-                </TextBox>
-            </WrapPanel>
-            <Button Content="Recognize" 
-                    HorizontalAlignment="Left" 
-                    Margin="0,10,0,0" 
-                    Height="25" 
-                    Width="72"
-                    Command="{Binding RecognizeCommand}">
-            </Button>
-        </StackPanel>
-        <Image Grid.Row="1" 
-               Grid.Column="1"
-               Source="{Binding RecognizedImageSource}">
-        </Image>
+        <TabControl>
+            <TabItem Header="Image Recognition">
+                <Frame NavigationUIVisibility="Hidden">
+                    <Frame.Content>
+                        <pages:ImageRecognitionPage />
+                    </Frame.Content>
+                </Frame>
+            </TabItem>
+            <TabItem Header="Real-Time Recognition">
+                <Frame NavigationUIVisibility="Hidden">
+                </Frame>
+            </TabItem>
+        </TabControl>
     </Grid>
 </Window>

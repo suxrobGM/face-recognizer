@@ -1,7 +1,9 @@
 ﻿using System.Windows;
 using DryIoc;
 using FaceRecognizer.App.ViewModels;
+using FaceRecognizer.App.ViewModels.Pages;
 using FaceRecognizer.App.Views;
+using FaceRecognizer.App.Views.Pages;
 
 namespace FaceRecognizer.App
 {
@@ -23,7 +25,10 @@ namespace FaceRecognizer.App
         protected virtual void RegisterTypes()
         {
             Container.Register<MainWindow>(Reuse.Singleton);
+            Container.Register<ImageRecognitionPage>(Reuse.Singleton);
+
             Container.Register<MainWindowViewModel>(Reuse.Singleton);
+            Container.Register<ImageRecognitionPageViewModel>(Reuse.Singleton);
         }
     }
 }
