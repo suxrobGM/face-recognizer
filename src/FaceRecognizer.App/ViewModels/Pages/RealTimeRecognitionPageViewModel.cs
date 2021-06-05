@@ -1,12 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Management;
+using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
 using System.Windows.Threading;
 using Emgu.CV;
+using Emgu.CV.Structure;
 using Serilog;
 using FaceRecognizer.App.Core.Commands;
 using FaceRecognizer.App.Core.Helpers;
@@ -19,6 +22,7 @@ namespace FaceRecognizer.App.ViewModels.Pages
 
         private readonly DispatcherTimer _timer;
         private VideoCapture _capture;
+        private CascadeClassifier _faceClassifier;
 
         #endregion
 
@@ -35,6 +39,7 @@ namespace FaceRecognizer.App.ViewModels.Pages
             SelectedCamera = AvailableCameras.FirstOrDefault();
             CanChangeCamera = true;
 
+            
             _timer = new DispatcherTimer
             {
                 Interval = TimeSpan.FromMilliseconds(30) // 30 fps
@@ -99,19 +104,37 @@ namespace FaceRecognizer.App.ViewModels.Pages
 
         private void StartCamera()
         {
-            if(string.IsNullOrEmpty(SelectedCamera))
+            if (string.IsNullOrEmpty(SelectedCamera))
+            {
+                Log.Logger?.Warning("Did not selected camera");
+                MessageBox.Show("Please select camera", "Attention", MessageBoxButton.OK,
+                    MessageBoxImage.Warning);
                 return;
+            }
+                
+
+            var cascadeFile = Path.Combine(Directory.GetCurrentDirectory(), "Data",
+                "haarcascade_frontalface_default.xml");
+
+            if (!File.Exists(cascadeFile))
+            {
+                Log.Logger?.Error("Could not found pre trained cascade models file");
+                MessageBox.Show("Could not found pre trained cascade models file", "ERROR", MessageBoxButton.OK,
+                    MessageBoxImage.Error);
+                return;
+            }
 
             var camIndex = AvailableCameras.IndexOf(SelectedCamera);
             _capture = new VideoCapture(camIndex);
+            _faceClassifier = new CascadeClassifier(cascadeFile);
             _timer.Start();
-
             CanChangeCamera = false;
         }
 
         private void StopCamera()
         {
             _capture.Dispose();
+            _faceClassifier.Dispose();
             _timer.Stop();
             CanChangeCamera = true;
         }
@@ -131,12 +154,23 @@ namespace FaceRecognizer.App.ViewModels.Pages
                 using var frame = _capture.QueryFrame();
                 if (frame != null)
                 {
+                    DetectFaces(frame);
                     CurrentFrame = ImageHelper.ConvertToBitmapSource(frame.ToBitmap());
                 }
             }
             catch (Exception ex)
             {
-                Log.Logger?.Information("Thrown exception in Video Capture: {Exception}", ex);
+                Log.Logger?.Error("Thrown exception on capturing video: {Exception}", ex);
+            }
+        }
+
+        private void DetectFaces(IInputOutputArray frame)
+        {
+            var faces = _faceClassifier.DetectMultiScale(frame, 1.1, 5);
+
+            foreach (var face in faces)
+            {
+                CvInvoke.Rectangle(frame, face, new MCvScalar(255, 255, 0), 3);
             }
         }
 
